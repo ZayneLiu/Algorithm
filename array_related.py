@@ -1,3 +1,6 @@
+"""
+All things that are array-related.
+"""
 
 
 class Solution:
@@ -37,7 +40,6 @@ class Solution:
         Explanation:
         Only 1771 contains an even number of digits.
         """
-
         counter = 0
         for num in nums:
             if len(str(num)) % 2 == 0:
