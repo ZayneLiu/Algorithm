@@ -70,15 +70,46 @@ class Solution:
         """
         # 1 0 2 3 0 4 5 0
         # 1 0 0 2 3 0 0 4
-        # TODO:
+        # FIXED: Brute-force solution
+        # c = 0
+        # while c < len(arr):
+        #     if arr[c] == 0:
+        #         add = 0
+        #         for j in range(c, len(arr)-1):
+        #             temp = arr[j+1]
+        #             arr[j+1] = add
+        #             add = temp
+        #         c += 1
+        #     c += 1
+
+        # Solution 2
+        result = []
         p1 = 0
-        for p2 in range(len(arr)):
-            if arr[p2] == 0:
-                for i in range(len(arr), p2+1):
-                    arr[i] = arr[i-1]
-                arr[p2] = 0
+        while p1 < len(arr):
+            result.append(arr[p1])
+            if arr[p1] == 0:
+                result.append(0)
 
             p1 += 1
+        print(result)
+
+        for i in range(len(arr)):
+            arr[i] = result[i]
+
+        # Solution 3 [based on the same idea as Solution 2]
+        # from copy import copy
+        # temp = copy(arr)
+        # p1 = 0
+        # for i in range(len(arr)):
+        #     if p1 >= len(arr):
+        #         break
+        #     arr[p1] = temp[i]
+        #     p1 += 1
+        #     if temp[i] == 0:
+        #         if p1 >= len(arr):
+        #             break
+        #         arr[p1] = 0
+        #         p1 += 1
 
     def mergeSortedArray(self, nums1: [int], m: int, nums2: [int], n: int) -> None:
         """
