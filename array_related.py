@@ -130,9 +130,31 @@ class Solution:
         Output: 5, nums = [0,1,4,0,3]
         Explanation: Your function should return length = 5, with the first five elements of nums containing 0, 1, 3, 0, and 4. Note that the order of those five elements can be arbitrary. It doesn't matter what values are set beyond the returned length.
         """
-        p1 = 0
-        for p2 in range(len(nums)):
-            if nums[p2] != val:
-                nums[p1] = nums[p2]
-                p1 += 1
-        return p1
+        d = []
+        for i in range(len(nums)):
+            if nums[i] == val:
+                pass
+            else:
+                d.append(nums[i])
+        for i in range(len(d)):
+            nums[i] = d[i]
+        return len(d)
+
+    def removeDuplicates(self, nums: [int]) -> int:
+        """
+        Input: nums = [0,0,1,1,1,2,2,3,3,4]
+        Output: 5, nums = [0,1,2,3,4]
+
+        Input: nums = [1,1,2]
+        Output: 2, nums = [1,2]
+        """
+        # FIXME: Too Slow!!
+        unique = {}
+
+        for n in nums:
+            if not unique.get(n, False):
+                unique[n] = True
+
+        for i in range(len(unique.keys())):
+            nums[i] = list(unique.keys())[i]
+        return len(unique.keys())
