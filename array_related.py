@@ -148,16 +148,27 @@ class Solution:
         Input: nums = [1,1,2]
         Output: 2, nums = [1,2]
         """
-        # FIXME: Too Slow!!
-        unique = {}
+        # FIXED: Too Slow!!
+        # # Solution 1
+        # unique = {}
 
-        for n in nums:
-            if not unique.get(n, False):
-                unique[n] = True
+        # for n in nums:
+        #     if not unique.get(n, False):
+        #         unique[n] = True
 
-        for i in range(len(unique.keys())):
-            nums[i] = list(unique.keys())[i]
-        return len(unique.keys())
+        # for i in range(len(unique.keys())):
+        #     nums[i] = list(unique.keys())[i]
+        # return len(unique.keys())
+
+        # Solution 2 [37.5%] Not good enough.
+        i = 0
+        while i < len(nums)-1:
+            if nums[i] == nums[i+1]:
+                nums.pop(i+1)
+                i -= 1
+            i += 1
+
+        return len(nums)
 
     def checkIfExist(self, arr: [int]):
         """
@@ -229,3 +240,31 @@ class Solution:
                     else:
                         return False
             return True
+
+    def replaceElements(self, arr: [int]) -> [int]:
+        """
+        Given an array arr, replace every element in that array with the greatest element among the elements to its right, and replace the last element with -1.
+
+        Input: arr = [17,18,5,4,6,1]
+        Output: [18,6,6,6,1,-1]
+        """
+        # # Solution 1 Brute-force (in-place)
+        # for i in range(len(arr)-1):
+        #     max_value: int = 0
+        #     for n in arr[i+1:]:
+        #         if n > max_value:
+        #             max_value = n
+        #     print(max_value)
+        #     arr[i] = max_value
+        # arr[len(arr)-1] = -1
+        # return arr
+
+        # Solution 2
+        result = [-1 for i in range(len(arr))]
+        max_value = -1
+        for i in range(len(arr)-1, 0, -1):
+            if arr[i] > max_value:
+                max_value = arr[i]
+            result[i-1] = max_value
+
+        return result
