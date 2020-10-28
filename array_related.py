@@ -158,3 +158,74 @@ class Solution:
         for i in range(len(unique.keys())):
             nums[i] = list(unique.keys())[i]
         return len(unique.keys())
+
+    def checkIfExist(self, arr: [int]):
+        """
+        Given an array arr of integers, check if there exists two integers N and M such that N is the double of M ( i.e. N = 2 * M).
+        Input: arr = [10,2,5,3]
+        Output: true
+
+        Input: arr = [7,1,14,11]
+        Output: true
+
+        Input: arr = [3,1,7,11]
+        Output: false
+        """
+        # # Solution 1 Brute-force
+        # for i in range(len(arr)):
+        #     for p_scan in range(i+1, len(arr)):
+        #         # if arr[p_scan] == 2*arr[i] or arr[i] == 2*arr[p_scan]:
+        #         if arr[p_scan] - arr[i] == arr[i] or arr[i] - arr[p_scan] == arr[p_scan]:
+        #             print(arr[p_scan], arr[i])
+        #             return True
+        # return False
+
+        # Solution 2
+        u_set = set(arr)
+        for i in range(len(arr)):
+            if arr[i] != 0:
+                if 2*arr[i] in u_set:
+                    return True
+            else:
+                arr.pop(i)
+                if 0 in arr:
+                    return True
+                else:
+                    arr.insert(i, 0)
+
+    def validMountainArray(self, A: [int]) -> bool:
+        """
+        Given an array A of integers, return true if and only if it is a valid mountain array.
+        Recall that A is a mountain array if and only if:
+            A.length >= 3
+            There exists some i with 0 < i < A.length - 1 such that:
+            A[0] < A[1] < ... A[i-1] < A[i]
+            A[i] > A[i+1] > ... > A[A.length - 1]
+
+        Input: [2,1]
+        Output: false
+
+        Input: [0,3,2,1]
+        Output: true
+
+        Input: [3,5,5]
+        Output: false
+        """
+        peak_reached = False
+        if len(A) <= 2:
+            return False
+        else:
+            for i in range(len(A)):
+                if i in (0, len(A)-1):
+                    if A[0] >= A[1] or A[len(A)-1] >= A[len(A)-2]:
+                        return False
+                else:
+                    if A[i-1] < A[i]:
+                        if peak_reached:
+                            return False
+                    elif A[i-1] > A[i]:
+                        peak_reached = True
+
+                    else:
+                        return False
+            return True
